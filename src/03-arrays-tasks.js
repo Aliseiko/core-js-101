@@ -36,15 +36,10 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-  let count = 1;
   const result = [];
-
-  while (result.length < len) {
-    if (count % 2) result.push(count);
-    count += 1;
-  }
-
-  return result;
+  result.length = len;
+  result.fill(1);
+  return result.map((el, ind) => el + 2 * ind);
 }
 
 
