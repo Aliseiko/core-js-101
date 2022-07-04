@@ -111,12 +111,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  const cosA = (x1 * x2 + y1 * y2) / (Math.sqrt(x1 ** 2 + y1 ** 2) * Math.sqrt(x1 ** 2 + y2 ** 2));
-  // let a = x1 * y1 + x2 * y2;
-  // let b = Math.sqrt(x1 ** 2 + x2 ** 2);
-  // let c = Math.sqrt(y1 ** 2 + y2 ** 2);
-  // const cosA = a / (b * c);
-  // console.log(a, b, c, cosA);
+  const cosA = (x1 * x2 + y1 * y2) / (Math.sqrt(x1 ** 2 + y1 ** 2) * Math.sqrt(x2 ** 2 + y2 ** 2));
   return Math.acos(cosA);
 }
 
