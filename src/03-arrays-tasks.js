@@ -506,16 +506,15 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-  const res = [];
-  const arr = [];
-  res.length = end - start + 1;
-  let count = start;
-  res.map(() => {
-    arr.push(count);
+  let count = start - 1;
+  const foo = (x) => {
     count += 1;
-    return count;
-  });
-  return arr;
+    return x + count;
+  };
+  const res = [];
+  res.length = end - start + 1;
+  res.fill(0);
+  return res.map(foo);
 }
 
 /**
@@ -529,8 +528,8 @@ function getIntervalArray(start, end) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  return Array.from(new Set(arr));
 }
 
 /**
@@ -563,8 +562,20 @@ function distinct(/* arr */) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const res = new Map();
+  array.map((el) => {
+    const key = keySelector(el);
+    const value = valueSelector(el);
+
+    if (!res.has(key)) {
+      res.set(key, [value]);
+    } else {
+      res.set(key, [...res.get(key), value]);
+    }
+    return 0;
+  });
+  return res;
 }
 
 
@@ -581,8 +592,11 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.reduce((res, el) => {
+    res.push(...childrenSelector(el));
+    return res;
+  }, []);
 }
 
 
