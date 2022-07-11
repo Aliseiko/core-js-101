@@ -190,8 +190,13 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+
+function findFirstSingleChar(str) {
+  const strArr = str.split('');
+  for (let i = 0; i < str.length; i += 1) {
+    if (strArr.filter((el) => el === str[i] && el !== ' ').length === 1) return str[i];
+  }
+  return null;
 }
 
 
@@ -234,8 +239,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -325,8 +330,27 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  if (str.length === 0) return true;
+  if (str.length === 1) return false;
+
+  const matrix = {
+    '}': '{',
+    ']': '[',
+    ')': '(',
+    '>': '<',
+  };
+  const arr = [str[0]];
+
+  for (let i = 1; i < str.length; i += 1) {
+    if (arr.length > 0 && matrix[str[i]] === arr[arr.length - 1]) {
+      arr.pop();
+    } else {
+      arr.push(str[i]);
+    }
+  }
+
+  return arr.length === 0;
 }
 
 
