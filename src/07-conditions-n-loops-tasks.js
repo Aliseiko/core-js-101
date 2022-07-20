@@ -480,8 +480,45 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const winCombos = [[1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [1, 5, 9],
+    [7, 5, 3],
+  ];
+  const pos = [undefined];
+  position.forEach((el) => {
+    for (let i = 0; i < 3; i += 1) {
+      if (el[i] !== undefined) {
+        pos.push(el[i]);
+      } else {
+        pos.push(undefined);
+      }
+    }
+  });
+
+  let winner;
+  const positionX = pos.map((el, index) => (el === 'X' ? index : undefined)).filter((el) => el !== undefined);
+  const position0 = pos.map((el, index) => (el === '0' ? index : undefined)).filter((el) => el !== undefined);
+
+  [positionX, position0].forEach((el, index) => {
+    for (let i = 0; i < 8; i += 1) {
+      if (el.includes(winCombos[i][0])
+        && el.includes(winCombos[i][1])
+        && el.includes(winCombos[i][2])) {
+        winner = index;
+        return;
+      }
+    }
+  });
+  if (winner === 0) {
+    return 'X';
+  }
+  return (winner === 1) ? '0' : undefined;
 }
 
 
